@@ -1,0 +1,77 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.openai.com/v1/assistants
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer <OPENAI_ACCESS_TOKEN>
+      Openai-Beta:
+      - assistants=v1
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 07 Nov 2023 19:49:55 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Openai-Version:
+      - '2020-10-01'
+      Openai-Organization:
+      - user-i85tq48ozqa7dmmopgk8s2gk
+      X-Request-Id:
+      - 6757c3d1ba1707b8cfd494365b0e4cfb
+      Openai-Processing-Ms:
+      - '100'
+      Strict-Transport-Security:
+      - max-age=15724800; includeSubDomains
+      Cf-Cache-Status:
+      - DYNAMIC
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 82281a2fb9059c8e-IAD
+      Alt-Svc:
+      - h3=":443"; ma=86400
+    body:
+      encoding: ASCII-8BIT
+      string: |-
+        {
+          "object": "list",
+          "data": [
+            {
+              "id": "asst_pgEnQ5I9loqQYpyjJJlJNJ3p",
+              "object": "assistant",
+              "created_at": 1699386595,
+              "name": "Coding Assistant",
+              "description": null,
+              "model": "gpt-3.5-turbo",
+              "instructions": null,
+              "tools": [],
+              "file_ids": [],
+              "metadata": {}
+            }
+          ],
+          "first_id": "asst_pgEnQ5I9loqQYpyjJJlJNJ3p",
+          "last_id": "asst_pgEnQ5I9loqQYpyjJJlJNJ3p",
+          "has_more": false
+        }
+  recorded_at: Tue, 07 Nov 2023 19:49:55 GMT
+recorded_with: VCR 6.1.0

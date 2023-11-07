@@ -1,6 +1,17 @@
 RSpec.describe OpenAI::Client do
   describe "#assistants", :vcr do
     let(:extra_headers) { { "OpenAI-Beta" => "assistants=v1" } }
+    let(:create) do
+      VCR.use_cassette(create_cassette) do
+        OpenAI::Client.new.assistants.create(
+          parameters: {
+            name: name,
+            model: model
+          }
+        )
+      end
+    end
+    let(:create_id) { create["id"] }
 
     before do
       OpenAI.configure do |config|
@@ -14,7 +25,28 @@ RSpec.describe OpenAI::Client do
       end
     end
 
-    describe "#generate", :vcr do
+    describe "#list", :vcr do
+      let(:cassette) { "assistants list" }
+      let(:create_cassette) { "#{cassette} create" }
+      let(:response) { OpenAI::Client.new.assistants.list }
+      let(:name) { "Coding Assistant" }
+      let(:model) { "gpt-3.5-turbo" }
+
+      before { create }
+
+      it "succeeds" do
+        VCR.use_cassette(cassette) do
+          puts response.inspect
+          expect(response.dig("data").length).to eql(1)
+          expect(response.dig("data", 0, "id")).to eql(create_id)
+          expect(response.dig("data", 0, "name")).to eql(name)
+        end
+      end
+    end
+
+    describe "#create", :vcr do
+      let(:cassette) { "assistants create" }
+      let(:model) { "gpt-3.5-turbo" }
       let(:response) do
         OpenAI::Client.new.assistants.create(
           parameters: {
@@ -22,8 +54,6 @@ RSpec.describe OpenAI::Client do
           }
         )
       end
-      let(:cassette) { "assistants create" }
-      let(:model) { "gpt-3.5-turbo" }
 
       it "succeeds" do
         VCR.use_cassette(cassette) do

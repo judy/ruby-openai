@@ -4,6 +4,10 @@ module OpenAI
       @client = client
     end
 
+    def list
+      @client.get(path: "/assistants")
+    end
+
     def create(parameters: {})
       @client.json_post(path: "/assistants", parameters: parameters)
     end
