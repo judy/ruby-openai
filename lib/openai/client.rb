@@ -37,6 +37,10 @@ module OpenAI
       @audio ||= OpenAI::Audio.new(client: self)
     end
 
+    def assistants
+      @assistants ||= OpenAI::Assistants.new(client: self)
+    end
+
     def files
       @files ||= OpenAI::Files.new(client: self)
     end
