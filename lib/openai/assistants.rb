@@ -11,5 +11,9 @@ module OpenAI
     def create(parameters: {})
       @client.json_post(path: "/assistants", parameters: parameters)
     end
+
+    def retrieve(id:)
+      @client.get(path: "/assistants/#{id}")
+    end
   end
 end

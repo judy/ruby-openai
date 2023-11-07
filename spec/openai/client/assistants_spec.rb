@@ -60,5 +60,18 @@ RSpec.describe OpenAI::Client do
         end
       end
     end
+
+    describe "#retrieve" do
+      let(:cassette) { "assistants retrieve" }
+      let(:create_cassette) { "#{cassette} create" }
+      let(:response) { OpenAI::Client.new.assistants.retrieve(id: create_id) }
+
+      it "succeeds" do
+        VCR.use_cassette(cassette) do
+          expect(response.dig("model")).to eql(model)
+          expect(response.dig("name")).to eql(name)
+        end
+      end
+    end
   end
 end
